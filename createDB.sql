@@ -89,3 +89,9 @@ ALTER TABLE `clients`
 --
 ALTER TABLE `commands`
   MODIFY `id_command` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  
+  
+ 
+CREATE USER 'userweb'@'%' IDENTIFIED BY 'userweb@123';
+GRANT ALL ON dbtest.* TO 'userweb'@'%';
+FLUSH PRIVILEGES;

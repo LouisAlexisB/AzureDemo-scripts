@@ -5,7 +5,7 @@
 </head>
 
 <body>
-
+<img src="axa.png">
 <h1><?php echo "Server '".gethostname()."' - private IP address = ".$_SERVER["SERVER_ADDR"]." / public IP = ".$_SERVER["SERVER_NAME"]; ?></h1>
 
 

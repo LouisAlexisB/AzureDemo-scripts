@@ -1,0 +1,44 @@
+{
+  "builders": [{
+    "type": "azure-arm",
+
+    "client_id": "c838a040-b172-46ec-9835-64aa8424cb9f",
+    "client_secret": "a8077c22-d2cd-4a66-bd3b-02f6311c97de",
+    "tenant_id": "d972c977-34ba-4b9f-b1eb-3142b106ec4e",
+    "subscription_id": "66c50b8e-4446-438b-81e8-d996df3ba152",
+
+    "managed_image_resource_group_name": "OCD-RG-TestFormation",
+    "managed_image_name": "PackerImage-testLBR-{{timestamp}}",
+
+    "os_type": "Linux",
+    "image_publisher": "Canonical",
+    "image_offer": "UbuntuServer",
+    "image_sku": "16.04-LTS",
+    "location": "francecentral",
+    "vm_size": "Standard_B1s"
+  }],
+
+   "provisioners":[
+   {
+    "type": "shell",
+    "inline_shebang": "/bin/sh -x",
+     "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+   "inline": [
+      "apt-get update",
+      "apt-get upgrade -y",
+      "apt-get -y install ansible python python-apt"
+    ]
+   },
+    {
+      "type": "ansible-local",
+      "playbook_file": "/etc/ansible/playbook-mysql-LOCAL.yml"
+    },
+    {
+      "type": "shell",
+         "inline": [
+      "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+         ],
+      "inline_shebang": "/bin/sh -x"
+    }
+  ]
+}

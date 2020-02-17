@@ -1,0 +1,5 @@
+- hosts: 10.0.6.10
+  become: true
+  tasks:
+  - name: Install mysql
+    apt: pkg=mysql-server state=present
